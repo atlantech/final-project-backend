@@ -9,6 +9,10 @@ class UsersService {
     return await User.findAll();
   }
 
+  getOne = async(id) => { 
+    return await User.findOne({where:{ id : id }});
+  }
+
   add = async(user, file) => {
     const salt = await bcrypt.genSalt(10);
     return await User.create({

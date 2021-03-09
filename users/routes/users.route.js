@@ -8,7 +8,8 @@ const createUserSchema = require('../validation-schemas/create-user.schema');
 const updateUserSchema = require('../validation-schemas/update-user.schema');
 
 router
-  .get('/', auth, controller.get )
+  .get('/', controller.get ) /*auth*/
+  .get('/:id', controller.getOne )
   .post('/register', upload, validate(createUserSchema), controller.add )
   .delete('/:id', controller.delete)
   .put('/:id', validate(updateUserSchema), controller.update)

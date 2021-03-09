@@ -1,3 +1,4 @@
+const { required } = require('joi');
 const usersService = require('../services/users.service');
 class UsersController {
   service = usersService;
@@ -6,6 +7,12 @@ class UsersController {
     res
       .status(200)
       .json(await this.service.get())
+  };
+
+  getOne = async ( req, res, next ) => {
+    res
+      .status(200)
+      .json(await this.service.getOne(req.params.id))
   };
 
   add = async ( req, res, next ) => {
