@@ -7,7 +7,7 @@ const port = 3000;
 
 
 app.use(cors());
-app.use('/upload', express.static('upload'));
+app.use('/upload', express.static('users/upload'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

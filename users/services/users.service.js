@@ -5,11 +5,11 @@ const User = require('../models/User');
 
 class UsersService {
 
-  get = async() => { 
+  get = async() => {
     return await User.findAll();
   }
 
-  getOne = async(id) => { 
+  getOne = async(id) => {
     return await User.findOne({where:{ id : id }});
   }
 
@@ -34,9 +34,8 @@ class UsersService {
     }
 
  avatar = async (updateUser, id, file) => {
-   const path = '/upload' + file.filename;
-   updateUser.avatar = path;
-    updateUser = await User.update(updateUser, { 
+   updateUser.avatar = file.filename;
+    updateUser = await User.update(updateUser, {
         where: {
           id: id
         }
@@ -55,14 +54,14 @@ class UsersService {
   login = async (login, password) => {
     const user = await User.findOne({where:{ login : login }});
       if (!user){
-        console.log(`User is not found`); 
+        console.log(`User is not found`);
       } else {
         const passwordByUser = await bcrypt.compare(password, user.password);
         if(passwordByUser){
           const token = jwt.sign({
-            id: user.id         
+            id: user.id
           }, secret, { expiresIn: '12.5hrs' });
-          console.log(token);       
+          console.log(token);
             return {token, user};
         } else {
           console.log('Invalid password');
