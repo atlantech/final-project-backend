@@ -10,13 +10,14 @@ const auth = async (req, res, next) => {
     }
 
     const decodeData = jwt.verify(token, secret);
+    const user = await User.findByPk(decodeData.id);
 
     if(await User.findOne({ 
       where: { 
         id: decodeData.id
       }}
     )) {
-      req.user = decodeData;
+      req.user = user;
       next();
     } else {
       return res.status(401).send("User does not exit or has been deleted")

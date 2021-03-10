@@ -24,8 +24,14 @@ class UsersController {
   update = async ( req, res, next ) => {
     res
       .status(200)
-      .json(await this.service.update(req.body, req.file, req.params.id));
-  }; 
+      .json(await this.service.update(req.body, req.params.id, req.file));
+  };
+
+  avatar = async ( req, res, next ) => {
+    res
+      .status(200)
+      .json(await this.service.avatar(req.body, req.params.id, req.file));
+  };
 
   delete = (req, res, next ) => {
     res

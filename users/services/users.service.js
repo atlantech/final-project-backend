@@ -24,8 +24,8 @@ class UsersService {
     })
   }
 
-  update = async (updateUser, id) => {
-    const {login, name, password, avatar } = updateUser;
+  update = async (updateUser, file, id) => {
+    const {login, name, password, avatar} = updateUser;
       if(name){
         updateUser = await User.update({name: name}, {
              where: {
@@ -55,14 +55,12 @@ class UsersService {
           });
         return updateUser;
       } 
-      if(avatar){
-        updateUser = await User.update({avatar : avatar}, {
-          where: {
-            id : id
-          }
-        })
-        return updateUser;
-      }
+  }
+
+  avatar = async(updateUser, file, id) => {
+    updateUser.avatar = '/upload' + file.filename;
+    user = await User.update({avatar: updateUser.avatar}, {where: {id : id}})
+    return user
   }
 
   delete = async(id) => {

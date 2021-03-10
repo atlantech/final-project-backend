@@ -12,7 +12,8 @@ router
   .get('/:id', controller.getOne )
   .post('/register', validate(createUserSchema), controller.add )
   .delete('/:id', controller.delete)
-  .put('/:id', upload.single('avatar'), validate(updateUserSchema), controller.update)
+  .post('/avatar/:id', upload, controller.avatar)
+  .put('/:id', validate(updateUserSchema), controller.update)
   .post('/login', controller.login);
   
 module.exports = router;
