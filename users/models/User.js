@@ -25,8 +25,7 @@ const User = sequelizeDB.define('User', {
   },
 
   avatar: {
-    type: DataTypes.STRING,
-    defaultValue: '/upload'
+    type: DataTypes.STRING
   }
 
 }, {

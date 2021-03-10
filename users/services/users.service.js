@@ -24,44 +24,25 @@ class UsersService {
     })
   }
 
-  update = async (updateUser, file, id) => {
-    const {login, name, password, avatar} = updateUser;
-      if(name){
-        updateUser = await User.update({name: name}, {
-             where: {
-               id: id
-            }
-          });
-        console.log('You changed NAME');
-        return updateUser;
+  update = async (updateUser, id) => {
+    updateUser = await User.update(updateUser, {
+        where: {
+          id: id
+        }
+      });
+      return updateUser;
+    }
 
-      } if(login){
-        updateUser = await User.update({login: login}, {
-           where:{
-             id: id
-          }
-        });
-        console.log('You changed LOGIN');
-        return updateUser;
-
-      } if(password){
-        const salt = await bcrypt.genSalt(10);
-        console.log('You changed PASSWORD');
-        updateUser = await User.update({ 
-          password: await bcrypt.hash(password, salt)}, {
-            where: {
-              id: id
-            }
-          });
-        return updateUser;
-      } 
-  }
-
-  avatar = async(updateUser, file, id) => {
-    updateUser.avatar = '/upload' + file.filename;
-    user = await User.update({avatar: updateUser.avatar}, {where: {id : id}})
-    return user
-  }
+ avatar = async (updateUser, id, file) => {
+   const path = '/upload' + file.filename;
+   updateUser.avatar = path;
+    updateUser = await User.update(updateUser, { 
+        where: {
+          id: id
+        }
+      });
+      return updateUser;
+    }
 
   delete = async(id) => {
     return await User.destroy({
