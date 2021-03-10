@@ -13,4 +13,4 @@ const fileStorage = multer.diskStorage({
 });
 
 
-module.exports = multer({storage: fileStorage}).single('avatar');
+module.exports = multer({storage: fileStorage});

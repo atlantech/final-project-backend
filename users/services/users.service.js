@@ -13,19 +13,19 @@ class UsersService {
     return await User.findOne({where:{ id : id }});
   }
 
-  add = async(user, file) => {
+  add = async(user) => {
     const salt = await bcrypt.genSalt(10);
     return await User.create({
       id: user.id,
       name: user.name,
       login: user.login,
       password:await bcrypt.hash(user.password, salt),
-      avatar: file
+      avatar: user.avatar
     })
   }
 
   update = async (updateUser, id) => {
-    const {login, name, password } = updateUser;
+    const {login, name, password, avatar } = updateUser;
       if(name){
         updateUser = await User.update({name: name}, {
              where: {
@@ -55,6 +55,14 @@ class UsersService {
           });
         return updateUser;
       } 
+      if(avatar){
+        updateUser = await User.update({avatar : avatar}, {
+          where: {
+            id : id
+          }
+        })
+        return updateUser;
+      }
   }
 
   delete = async(id) => {

@@ -10,7 +10,9 @@ app.use(cors());
 app.use('/upload', express.static('upload'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use('/users', usersRouter);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
